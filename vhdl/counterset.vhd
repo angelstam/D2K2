@@ -34,43 +34,44 @@ entity counterset is
     Port ( clk : in  STD_LOGIC;
            reset : in STD_LOGIC;
            step : in  STD_LOGIC;
-           hour_h : out  STD_LOGIC_VECTOR (3 downto 0);
-           hour_l : out  STD_LOGIC_VECTOR (3 downto 0);
-           min_h : out  STD_LOGIC_VECTOR (3 downto 0);
-           min_l : out  STD_LOGIC_VECTOR (3 downto 0));
-end counter;
+           hour_h : inout  STD_LOGIC_VECTOR (3 downto 0);
+           hour_l : inout  STD_LOGIC_VECTOR (3 downto 0);
+           min_h : inout  STD_LOGIC_VECTOR (3 downto 0);
+           min_l : inout  STD_LOGIC_VECTOR (3 downto 0));
+end counterset;
 
-architecture Behavioral of counter is
+architecture Behavioral of counterset is
 signal tick10m : STD_LOGIC := '0';
 signal tick1hm : STD_LOGIC := '0';
 signal tick10h : STD_LOGIC := '0';
+signal tick1h : STD_LOGIC := '0';
 signal hour_reset : STD_LOGIC := '0';
 begin
     hourh : entity work.counter port map (  clk => clk,
-                                            hour_reset => reset,
-                                            tick10h => step,
-                                            "0011" => stop,
-                                            --overflow => tick10h,
+                                            reset => hour_reset,
+                                            step => tick10h,
+                                            stop => "0011",
+                                            overflow => tick10h,
                                             state => hour_l);
 
     hourm : entity work.counter port map (  clk => clk,
-                                            hour_reset => reset,
-                                            tick1h => step,
-                                            "1001" => stop,
+                                            reset => hour_reset,
+                                            step => tick1h,
+                                            stop => "1001",
                                             overflow => tick10h,
                                             state => hour_l);
    
     minh : entity work.counter port map (   clk => clk,
                                             reset => reset,
-                                            tick10m => step,
-                                            "0101" => stop,
+                                            step => tick10m,
+                                            stop => "0101",
                                             overflow => tick1h,
                                             state => min_h);
         
     minm : entity work.counter port map (   clk => clk,
                                             reset => reset,
                                             step => step,
-                                            "1001" => stop,
+                                            stop => "1001",
                                             overflow => tick10m,
                                             state => min_l);
     

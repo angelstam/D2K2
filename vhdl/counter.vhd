@@ -22,7 +22,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
@@ -30,13 +30,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity counter is
-    generic (width := 3);
+    generic (width : natural := 3);
     Port ( clk : in  STD_LOGIC;
            reset : in STD_LOGIC;
            step : in  STD_LOGIC;
            stop : in STD_LOGIC_VECTOR(width downto 0);
            overflow : out STD_LOGIC;
-           state : out STD_LOGIC_VECTOR(width downto 0))
+           state : out STD_LOGIC_VECTOR(width downto 0));
 end counter;
 
 architecture Behavioral of counter is
@@ -61,7 +61,7 @@ begin
                 f <= '0';
                 
                 if step = '1' then
-                    r <= r + '1';
+                    r <= STD_LOGIC_VECTOR(UNSIGNED(r) + 1);
                 else
                     r <= r;
                 end if;
