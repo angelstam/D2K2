@@ -72,7 +72,7 @@ BEGIN
    uut: counterset PORT MAP (
           clk => clk,
           reset => reset,
-          step => step,
+          step => '1', --step,
           hour_h => hour_h,
           hour_l => hour_l,
           min_h => min_h,
@@ -82,16 +82,16 @@ BEGIN
    -- Clock process definitions
    clk_process :process
    begin
-		clk <= '0';
-		wait for clk_period/2;
 		clk <= '1';
+		wait for clk_period/2;
+		clk <= '0';
 		wait for clk_period/2;
    end process;
 
    -- Clock process definitions
    step_process :process
    begin
-		step <= '0';
+		step <= '1';
 		wait for clk_period*5;
 		step <= '1';
 		wait for clk_period*5;

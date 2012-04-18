@@ -51,8 +51,8 @@ begin
                                             reset => hour_reset,
                                             step => tick10h,
                                             stop => "0011",
-                                            overflow => tick10h,
-                                            state => hour_l);
+                                           -- overflow => tick10h,
+                                            state => hour_h);
 
     hourm : entity work.counter port map (  clk => clk,
                                             reset => hour_reset,
@@ -75,20 +75,10 @@ begin
                                             overflow => tick10m,
                                             state => min_l);
     
-    process(clk)
-    begin
-    
-        if rising_edge(clk) then
-            if reset = '1' or ( hour_h = "XX1X" 
-                                and hour_l = "XX11" 
-                                and tick1h = '1') then
-                hour_reset <= '1';
-            else 
-                hour_reset <= '0';
-            end if;
-            
-        end if;
-    end process;
+	 -- Reset hour on 23:59 to 00:00
+    hour_reset <= '1' when (reset = '1' or ( hour_h = "0010" 
+                                and hour_l = "0011" 
+                                and tick1h = '1')) else '0';
     
 end Behavioral;
 

@@ -52,25 +52,19 @@ begin
     if rising_edge(clk) then
         if reset = '1' then
             r <= (others => '0');
-        else 
-                       
-            if r = stop then
-                f <= '1';
-                r <= (others => '0');
-            else
-                f <= '0';
-                
-                if step = '1' then
-                    r <= STD_LOGIC_VECTOR(UNSIGNED(r) + 1);
-                else
-                    r <= r;
-                end if;
-                
-            end if;
-          
+        else
+            if step = '1' then	         
+					if r < stop then
+						 r <= STD_LOGIC_VECTOR(UNSIGNED(r) + 1);
+					else
+						 r <= (others => '0');
+					end if;
+				end if;
         end if;
     end if;
   end process;
+  -- Overflow
+  f <= '1' when (r = stop and step = '1') else '0';
     
 end Behavioral;
 
