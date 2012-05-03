@@ -44,10 +44,12 @@ end d2k2;
 architecture Behavioral of d2k2 is
 constant MODE_ALARM : STD_LOGIC := '1';
 constant MODE_TIME : STD_LOGIC := '0';
-constant CLK_PRESCALER : STD_LOGIC_VECTOR := "11000011010011111"; -- ms
-constant CLK_PRESCALER_WIDTH : natural := 17;
-constant MINUTE_PRESCALER : STD_LOGIC_VECTOR := "1110101001011111";
-constant MINUTE_PRESCALER_WIDTH : natural := 16;
+constant CLK_PRESCALER : STD_LOGIC_VECTOR := "00000000000000111"; -- ms
+--"11000011010011111"; -- ms
+constant CLK_PRESCALER_WIDTH : natural := 16;
+constant MINUTE_PRESCALER : STD_LOGIC_VECTOR := "0000000000111111";
+--1110101001011111";
+constant MINUTE_PRESCALER_WIDTH : natural := 15;
 
 signal ms_ticker : STD_LOGIC;
 signal minute_ticker : STD_LOGIC;
@@ -125,9 +127,9 @@ begin
 			overflow => minute_ticker);
 														
 	adr_counter : entity work.counter 
-		generic map (width => 2)
+		generic map (width => 1)
 		port map (
-			clk => ms_ticker,
+			ms_ticker,
 			reset,
 			step => '1',
 			stop => "11",

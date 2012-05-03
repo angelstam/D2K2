@@ -42,8 +42,8 @@ ARCHITECTURE behavior OF test_d2k2 IS
     COMPONENT d2k2
     PORT(
          clk : IN  std_logic;
-         adr : OUT  std_logic_vector(1 downto 0);
-         data : OUT  std_logic_vector(3 downto 0);
+         colmask : out  std_logic_vector (3 downto 0);
+         segmask : out  std_logic_vector (7 downto 0);
          reset : IN  std_logic;
          incr : IN  std_logic;
          mode : IN  std_logic;
@@ -59,8 +59,8 @@ ARCHITECTURE behavior OF test_d2k2 IS
    signal mode : std_logic := '0';
 
  	--Outputs
-   signal adr : std_logic_vector(1 downto 0);
-   signal data : std_logic_vector(3 downto 0);
+   signal colmask : std_logic_vector (3 downto 0);
+   signal segmask : std_logic_vector(7 downto 0);
    signal alarm : std_logic;
 
    -- Clock period definitions
@@ -71,8 +71,8 @@ BEGIN
 	-- Instantiate the Unit Under Test (UUT)
    uut: d2k2 PORT MAP (
           clk => clk,
-          adr => adr,
-          data => data,
+          colmask => colmask,
+          segmask => segmask,
           reset => reset,
           incr => incr,
           mode => mode,
