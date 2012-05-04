@@ -41,23 +41,23 @@ architecture Behavioral of disp is
 begin 
 --     ML13 L14 N14 M14 U18 T18 T17  . g-a pinout
 	segmask <=  "11000000" when data ="0000" else
-                "11111001" when data ="0001" else
-                "10100100" when data ="0010" else
-                "10110000" when data ="0011" else
-                "10011001" when data ="0100" else
-                "10010010" when data ="0101" else
-                "10000010" when data ="0110" else
-                "11111000" when data ="0111" else
-                "10000000" when data ="1000" else
-                "10011000" when data ="1001" else
-                "00000110";
+                    "11111001" when data ="0001" else
+                    "10100100" when data ="0010" else
+                    "10110000" when data ="0011" else
+                    "10011001" when data ="0100" else
+                    "10010010" when data ="0101" else
+                    "10000010" when data ="0110" else
+                    "11111000" when data ="0111" else
+                    "10000000" when data ="1000" else
+                    "10011000" when data ="1001" else
+                    "00000110";
                 
  -- N16 N15 P18 P17 ->  (("00". hour_h) ("01". hour_l) 
  --                      ("10" . min_h) ("11" . min_l))				  
-	colmask <=  "0001" when adr ="00" else
-                "0010" when adr ="01" else
-                "0100" when adr ="10" else
-                "1000" when adr ="11" else
+	colmask <=  "1110" when adr ="00" else
+                "1101" when adr ="01" else
+                "1011" when adr ="10" else
+                "0111" when adr ="11" else
                 "1111";
 					
 
