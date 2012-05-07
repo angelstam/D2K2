@@ -37,6 +37,7 @@ entity d2k2 is
 		segmask : out  STD_LOGIC_VECTOR (7 downto 0);
 		reset : in  STD_LOGIC;
 		incr : in  STD_LOGIC;
+		incr_hour : in STD_LOGIC;
 		mode : in  STD_LOGIC;
 		alarm : out  STD_LOGIC);
 end d2k2;
@@ -63,8 +64,14 @@ signal alarm_reg : STD_LOGIC_VECTOR (15 downto 0);
 signal time_step : STD_LOGIC;
 signal alarm_step : STD_LOGIC;
 
+signal time_hour_step : STD_LOGIC;
+signal alarm_hour_step : STD_LOGIC;
+
 signal time_pulse : STD_LOGIC;
 signal alarm_pulse : STD_LOGIC;
+
+signal time_hour_pulse : STD_LOGIC;
+signal alarm_hour_pulse : STD_LOGIC;
 
 begin
 	alarm_pulser : entity work.pulse
@@ -80,12 +87,27 @@ begin
 			reset,
 			input => time_step,
 			output => time_pulse);
+	
+	alarm_hour_pulser : entity work.pulse
+		port map (
+			clk,
+			reset,
+			input => alarm_hour_step,
+			output => alarm_hour_pulse);
+																
+	time_hour_pulser : entity work.pulse
+		port map (
+			clk,
+			reset,
+			input => time_hour_step,
+			output => time_hour_pulse);
 															 
 	time_counter : entity work.counterset
 		port map (
 			clk,
 			reset,
 			step => time_pulse,
+			step_hour => time_hour_step,
 			hour_h => time_reg(15 downto 12),
 			hour_l => time_reg(11 downto 8),
 			min_h => time_reg(7 downto 4),
@@ -96,6 +118,7 @@ begin
 			clk,
 			reset,
 			step => alarm_pulse,
+			step_hour => alarm_hour_step,
 			hour_h => alarm_reg(15 downto 12),
 			hour_l => alarm_reg(11 downto 8),
 			min_h => alarm_reg(7 downto 4),
@@ -156,5 +179,12 @@ begin
 		'1' when (incr = '1' and mode = MODE_ALARM) else
 		'0';
 	
+	time_hour_step <=
+		'1' when (incr_hour = '1' and mode = MODE_TIME) else
+		'0';
+	
+	alarm_hour_step <=
+		'1' when (incr_hour = '1' and mode = MODE_ALARM) else
+		'0';
 end Behavioral;
 

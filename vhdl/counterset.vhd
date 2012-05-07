@@ -34,6 +34,7 @@ entity counterset is
     Port ( clk : in  STD_LOGIC;
            reset : in STD_LOGIC;
            step : in  STD_LOGIC;
+			  step_hour : in STD_LOGIC;
            hour_h : inout  STD_LOGIC_VECTOR (3 downto 0);
            hour_l : inout  STD_LOGIC_VECTOR (3 downto 0);
            min_h : inout  STD_LOGIC_VECTOR (3 downto 0);
@@ -46,6 +47,7 @@ signal tick1hm : STD_LOGIC := '0';
 signal tick10h : STD_LOGIC := '0';
 signal tick1h : STD_LOGIC := '0';
 signal hour_reset : STD_LOGIC := '0';
+signal hour_m_step : STD_LOGIC := '0';
 begin
     hourh : entity work.counter port map (  clk => clk,
                                             reset => hour_reset,
@@ -56,7 +58,7 @@ begin
 
     hourm : entity work.counter port map (  clk => clk,
                                             reset => hour_reset,
-                                            step => tick1h,
+                                            step => hour_m_step,
                                             stop => "1001",
                                             overflow => tick10h,
                                             state => hour_l);
@@ -79,6 +81,7 @@ begin
     hour_reset <= '1' when (reset = '1' or ( hour_h = "0010" 
                                 and hour_l = "0011" 
                                 and tick1h = '1')) else '0';
-    
+    hour_m_step <= '1' when (tick1h = '1' or step_hour = '1')
+										  else '0';
 end Behavioral;
 
