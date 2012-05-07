@@ -1,7 +1,0 @@
-INFILE=/edu/cajla304/code/D2K2/ny/d2k2-synthdir/layoutdefault/design.ncd
-OUTFILE=/edu/cajla304/code/D2K2/ny/d2k2-synthdir/layoutdefault/design.bit
-FAMILY=Spartan6
-PART=xc6slx16-3csg324
-WORKINGDIR=/edu/cajla304/code/D2K2/ny/d2k2-synthdir/layoutdefault
-LICENSE=ISE
-USER_INFO=174170573_174170574_174423669

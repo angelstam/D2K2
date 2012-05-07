@@ -45,3 +45,6 @@ _ngo/
 *_pad.csv
 *_wave.fdo
 *_xst.xrpt
+*-simdir/
+*-synthdir/
+
