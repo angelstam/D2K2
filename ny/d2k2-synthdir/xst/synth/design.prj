@@ -1,0 +1,5 @@
+vhdl work "../../../d2k2.vhd"
+vhdl work "../../../counterset.vhd"
+vhdl work "../../../pulse.vhd"
+vhdl work "../../../counter.vhd"
+vhdl work "../../../disp.vhd"

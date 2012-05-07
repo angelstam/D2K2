@@ -1,0 +1,12 @@
+Release 12.4 Drc M.81d (lin)
+Copyright (c) 1995-2010 Xilinx, Inc.  All rights reserved.
+
+Fri May  4 17:11:11 2012
+
+drc -z design.ncd design.pcf
+
+WARNING:PhysDesignRules:372 - Gated clock. Clock net ms_ticker is sourced by a
+   combinatorial pin. This is not good design practice. Use the CE pin to
+   control the loading of data into the flip-flop.
+DRC detected 0 errors and 1 warnings.  Please see the previously displayed
+individual error or warning messages for more details.

@@ -1,0 +1,73 @@
+# //  ModelSim SE 6.5c Aug 27 2009 Linux 2.6.18-308.4.1.el5PAE
+# //
+# //  Copyright 1991-2009 Mentor Graphics Corporation
+# //              All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND 
+# //  PROPRIETARY INFORMATION WHICH IS THE PROPERTY
+# //  OF MENTOR GRAPHICS CORPORATION OR ITS LICENSORS
+# //  AND IS SUBJECT TO LICENSE TERMS.
+# //
+# do {test_d2k2.fdo} 
+# Model Technology ModelSim SE vcom 6.5c Compiler 2009.08 Aug 27 2009
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Loading package numeric_std
+# -- Compiling entity counter
+# -- Compiling architecture behavioral of counter
+# Model Technology ModelSim SE vcom 6.5c Compiler 2009.08 Aug 27 2009
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling entity pulse
+# -- Compiling architecture behavioral of pulse
+# Model Technology ModelSim SE vcom 6.5c Compiler 2009.08 Aug 27 2009
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling entity disp
+# -- Compiling architecture behavioral of disp
+# Model Technology ModelSim SE vcom 6.5c Compiler 2009.08 Aug 27 2009
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling entity counterset
+# -- Compiling architecture behavioral of counterset
+# -- Loading package numeric_std
+# -- Loading entity counter
+# Model Technology ModelSim SE vcom 6.5c Compiler 2009.08 Aug 27 2009
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling entity d2k2
+# -- Compiling architecture behavioral of d2k2
+# -- Loading entity pulse
+# -- Loading entity counterset
+# -- Loading entity disp
+# -- Loading package numeric_std
+# -- Loading entity counter
+# Model Technology ModelSim SE vcom 6.5c Compiler 2009.08 Aug 27 2009
+# -- Loading package standard
+# -- Loading package std_logic_1164
+# -- Compiling entity test_d2k2
+# -- Compiling architecture behavior of test_d2k2
+# vsim -lib work -voptargs=\"+acc\" -t 1ps work.test_d2k2 
+# ** Note: (vsim-3812) Design is being optimized...
+# Loading std.standard
+# Loading ieee.std_logic_1164(body)
+# Loading work.test_d2k2(behavior)#1
+# Loading ieee.numeric_std(body)
+# Loading work.d2k2(behavioral)#1
+# Loading work.pulse(behavioral)#1
+# Loading work.counterset(behavioral)#1
+# Loading work.counter(behavioral)#1
+# Loading work.disp(behavioral)#1
+# Loading work.counter(behavioral)#2
+# Loading work.counter(behavioral)#3
+# Loading work.counter(behavioral)#4
+# .main_pane.wave.interior.cs.body.pw.wf
+# .main_pane.structure.interior.cs.body.struct
+# .main_pane.objects.interior.cs.body
+
+restart
+run
+run 100us
+restart 
+restart
+run 3ms
