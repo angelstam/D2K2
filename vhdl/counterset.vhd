@@ -80,7 +80,7 @@ begin
 	 -- Reset hour on 23:59 to 00:00
     hour_reset <= '1' when (reset = '1' or ( hour_h = "0010" 
                                 and hour_l = "0011" 
-                                and tick1h = '1')) else '0';
+                                and hour_m_step = '1')) else '0';
     hour_m_step <= '1' when (tick1h = '1' or step_hour = '1')
 										  else '0';
 end Behavioral;
