@@ -23,7 +23,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx primitives in this code.
@@ -45,12 +45,10 @@ end d2k2;
 architecture Behavioral of d2k2 is
 constant MODE_ALARM : STD_LOGIC := '1';
 constant MODE_TIME : STD_LOGIC := '0';
-constant CLK_PRESCALER : STD_LOGIC_VECTOR :="11000011010011111";
---"11000011010011111"; -- ms
+constant CLK_PRESCALER : STD_LOGIC_VECTOR := "11000011010011111";
 constant CLK_PRESCALER_WIDTH : natural := 16;
-constant MINUTE_PRESCALER : STD_LOGIC_VECTOR := "1110100101111";
---1110101001011111";
-constant MINUTE_PRESCALER_WIDTH : natural := 12;
+constant MINUTE_PRESCALER : STD_LOGIC_VECTOR := "101100100001111011101000110001"; -- This is shorter than a minute for testing.
+constant MINUTE_PRESCALER_WIDTH : natural := 29;
 
 signal ms_ticker : STD_LOGIC;
 signal minute_ticker : STD_LOGIC;
@@ -72,6 +70,8 @@ signal alarm_pulse : STD_LOGIC;
 
 signal time_hour_pulse : STD_LOGIC;
 signal alarm_hour_pulse : STD_LOGIC;
+
+signal counter_r : unsigned(17 downto 0) := "000000000000000000";
 
 begin
 	alarm_pulser : entity work.pulse
@@ -143,20 +143,20 @@ begin
 	minute_prescaler_counter : entity work.counter 
 		generic map (width => MINUTE_PRESCALER_WIDTH)
 		port map (
-			ms_ticker,
+			clk,
 			reset,
 			step => '1',
 			stop => MINUTE_PRESCALER,
 			overflow => minute_ticker);
 														
-	adr_counter : entity work.counter 
-		generic map (width => 1)
-		port map (
-			ms_ticker,
-			reset,
-			step => '1',
-			stop => "11",
-			state => adr);
+--	adr_counter : entity work.counter 
+--		generic map (width => 1)
+--		port map (
+--			ms_ticker,
+--			reset,
+--			step => '1',
+--			stop => "11",
+--			state => adr);
 	
 	alarm <= '1' when time_reg = alarm_reg else '0';
 	
@@ -186,5 +186,19 @@ begin
 	alarm_hour_step <=
 		'1' when (incr_hour = '1' and mode = MODE_ALARM) else
 		'0';
+		
+	-- adr counter
+   process(clk) begin
+     if rising_edge(clk) then 
+       counter_r <= counter_r + 1;
+		
+		 case counter_r(17 downto 16) is
+         when "00" => adr <= "00";
+         when "01" => adr <= "01";
+         when "10" => adr <= "10";
+         when others => adr <= "11";
+       end case;
+     end if;
+   end process;
 end Behavioral;
 

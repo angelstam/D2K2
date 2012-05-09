@@ -37,18 +37,21 @@ entity pulse is
 end pulse;
 
 architecture Behavioral of pulse is
-signal delayed_input : STD_LOGIC;
+signal x : STD_LOGIC;
+signal y : STD_LOGIC;
 begin
-	output <= input and not delayed_input;
 	process(clk)
 	begin
-		if rising_edge(clk) then
-			if reset = '1' then
-				delayed_input <=  '0';
-			else
-				delayed_input <= input;
-			end if;
+		if reset = '1' then
+			x <=  '0';
+			y <= '0';
+		elsif rising_edge(clk) then
+			x <= input;
+			y <= x;
 		end if;
 	end process;
+	
+	output <= x and not y;
+	
 end Behavioral;
 

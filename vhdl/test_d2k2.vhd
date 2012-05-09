@@ -46,6 +46,7 @@ ARCHITECTURE behavior OF test_d2k2 IS
          segmask : out  std_logic_vector (7 downto 0);
          reset : IN  std_logic;
          incr : IN  std_logic;
+			incr_hour : IN std_logic;
          mode : IN  std_logic;
          alarm : OUT  std_logic
         );
@@ -56,6 +57,7 @@ ARCHITECTURE behavior OF test_d2k2 IS
    signal clk : std_logic := '0';
    signal reset : std_logic := '0';
    signal incr : std_logic := '0';
+   signal incr_hour : std_logic := '0';
    signal mode : std_logic := '0';
 
  	--Outputs
@@ -75,6 +77,7 @@ BEGIN
           segmask => segmask,
           reset => reset,
           incr => incr,
+			 incr_hour => incr_hour,
           mode => mode,
           alarm => alarm
         );
